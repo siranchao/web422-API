@@ -1,5 +1,8 @@
+const bcrypt = require('bcryptjs')
 
+//use middleware to replace try..catch.. block
 const asyncHandler = require('express-async-handler');
+
 const UserModel = require('../models/userModel')
 
 
@@ -21,7 +24,7 @@ const allUsers = asyncHandler(async (req, res) => {
 
 
 //@controller: fetch one user data by id
-//@route GET /api/users/id
+//@route GET /api/users/:id
 const getUserById = asyncHandler(async (req, res) => {
     const query = await UserModel.findById(req.params.id).exec()
 
@@ -55,9 +58,16 @@ const registerUser = asyncHandler(async (req, res) => {
 
     res.status(200).json({
         message: "new user added",
-        data: null
+        data: userData
     })
 })
 
 
-module.exports = { allUsers, getUserById, registerUser }
+//@controller: user login
+//@route POST /api/users/login
+const userLogin = asyncHandler(async (req, res) => {
+
+})
+
+
+module.exports = { allUsers, getUserById, registerUser, userLogin }

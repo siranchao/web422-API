@@ -5,29 +5,6 @@ module.exports = class MoviesDB {
         this.Movie = movieModel;
     }
 
-    // Pass the connection string to `initialize()`
-    /*
-    initialize(connectionString) {
-        return new Promise((resolve, reject) => {
-            const db = mongoose.createConnection(
-                connectionString,
-                {
-                    useNewUrlParser: true,
-                    useUnifiedTopology: true
-                }
-            );
-
-            db.once('error', (err) => {
-                reject(err);
-            });
-            db.once('open', () => {
-                this.Movie = db.model("movies", movieSchema);
-                resolve();
-            });
-        });
-    }
-    */
-
     async addNewMovie(data) {
         const newMovie = new this.Movie(data);
         await newMovie.save();

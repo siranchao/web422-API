@@ -10,17 +10,16 @@
 ********************************************************************************/
 
 const express = require('express')
-const mongoose = require('mongoose')
-const path = require('path')
-const dotenv = require('dotenv')
-dotenv.config()
-const cors = require('cors')
-const HTTP_PORT = process.env.PORT || 8080
-
-
 const app = express()
 
+const HTTP_PORT = process.env.PORT || 8080
+
+const mongoose = require('mongoose')
+const dotenv = require('dotenv')
+dotenv.config()
+
 // Middleware: CORS-enabled
+const cors = require('cors')
 app.use(cors())
 
 // Middleware: Add support for incoming JSON entities
