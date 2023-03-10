@@ -27,6 +27,14 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
 
+// add passport as application-level middleware
+const passport = require('passport')
+const { strategy } = require('./middlewares/passportStrategy')
+
+passport.use(strategy);
+app.use(passport.initialize());
+
+
 app.get('/', (req, res) => {
     res.status(200).json({
         message: "API Listening"

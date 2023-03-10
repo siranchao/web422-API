@@ -45,7 +45,7 @@ const getUserById = asyncHandler(async (req, res) => {
 
     res.status(200).json({
         message: "fetching user data by id",
-        data: { name: query.name, email: query.email }
+        data: { id: query._id, name: query.name, email: query.email }
     })
 })
 
@@ -85,7 +85,12 @@ const registerUser = asyncHandler(async (req, res) => {
     if (newUser) {
         res.status(201).json({
             message: "new user added",
-            data: { name: newUser.name, email: newUser.email }
+            data: {
+                id: newUser._id,
+                name: newUser.name,
+                email: newUser.email,
+                token: generateToken(newUser._id)
+            }
         })
     }
     else {
@@ -114,7 +119,12 @@ const userLogin = asyncHandler(async (req, res) => {
     if (user && checkPassword) {
         res.json({
             message: "login successful",
-            data: { name: user.name, email: user.email }
+            data: {
+                id: user._id,
+                name: user.name,
+                email: user.email,
+                token: generateToken(user._id)
+            }
         })
     }
     else {
@@ -123,6 +133,17 @@ const userLogin = asyncHandler(async (req, res) => {
     }
 
 })
+
+
+//generate JWT token
+const generateToken = (id) => {
+    const payload = { id }
+    return jwt.sign(payload, process.env.JWT_SECRET, {
+        expiresIn: '30d'
+    })
+}
+
+
 
 
 module.exports = { allUsers, getUserById, registerUser, userLogin }
