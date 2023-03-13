@@ -8,7 +8,7 @@ const passport = require('passport')
 router.get('/', passport.authenticate('jwt', { session: false }), allUsers)
 
 //fetch one user data by id
-router.get('/:id', getUserById)
+router.get('/:id', passport.authenticate('jwt', { session: false }), getUserById)
 
 //register a new user
 router.post('/register', registerUser)
