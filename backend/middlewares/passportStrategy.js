@@ -7,12 +7,12 @@ const jwtOption = {}
 jwtOption.jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme('jwt')
 jwtOption.secretOrKey = process.env.JWT_SECRET
 
-const strategy = new JwtStrategy(jwtOption, (jwt, next) => {
-    console.log('payload received', jwt)
+const strategy = new JwtStrategy(jwtOption, (jwt_payload, next) => {
+    console.log('payload received', jwt_payload)
 
-    if (jwt) {
+    if (jwt_payload) {
         next(null, {
-            id: jwt.id,
+            id: jwt_payload.id,
         })
     }
     else {
